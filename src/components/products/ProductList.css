@@ -1,0 +1,30 @@
+.product-card { 
+    min-height: 320px;
+    height: 95%;
+    overflow: "auto";
+    box-shadow: 4px 4px #b2b6b3;
+}
+
+.product-card-text {
+    width: auto;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+}
+
+.product-card-img {
+    width: 160px;
+    height: 160px;
+    border: 0;
+}
+
+.checked {
+    color: #FF9529;
+    font-size: 18px;
+}
+
+.unchecked {
+    color: rgb(212, 202, 202);
+    font-size: 18px;
+}

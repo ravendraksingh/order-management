@@ -1,0 +1,148 @@
+import React, { useEffect, useState } from "react";
+import "./Cart.css";
+import Image from "react-bootstrap/Image";
+import { useNavigate } from "react-router-dom";
+import "../global.css";
+
+const EcomCart = (props) => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [isEmpty, setIsEmpty] = useState(true);
+  const [cart, setCart] = useState([]);
+  const [cartCount, setCartCount] = useState();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const localCartString = localStorage.getItem("cart");
+    if (localCartString !== null) {
+      setCart(JSON.parse(localCartString));
+      setIsEmpty(false);
+      setCartCount(cart.length);
+    } else {
+      //console.log("Cart is empty");
+    }
+    setIsLoading(false);
+    const cnt = getCartcount();
+    props.onUpdateCart({
+      cart_count: cnt,
+    });
+  }, []);
+
+  const deleteProductFromCart = (id) => {
+    //console.log("delete clicked, product_id: " + id);
+    //console.log("cart: ", cart);
+    let newCart = cart.filter((item) => item.product_id !== id);
+    //console.log("newcart:", newCart);
+    if (newCart?.length === 0) {
+      localStorage.removeItem("cart");
+      setCart([]);
+      setIsEmpty(true);
+      //navigate("/ecom/products");
+      navigate("/ecom/products/M30I20983");
+    } else {
+      localStorage.setItem("cart", JSON.stringify(newCart));
+      setCart(newCart);
+      setIsEmpty(false);
+      navigate("/ecom/cart");
+    }
+    const cnt = getCartcount();
+    props.onUpdateCart({
+      cart_count: cnt,
+    });
+  };
+
+  const getCartcount = () => {
+    let count = 0;
+    const cart = localStorage.getItem("cart");
+    if (cart !== null) {
+      count = JSON.parse(cart).length;
+      //console.log('in getCartcount, count:' + count);
+    }
+    return count;
+  };
+
+  return (
+    <div className="cart-main-container">
+      <div className="cart">
+        <h3>Shopping Cart</h3>
+        <hr />
+        {isLoading && <p>...Loading</p>}
+        {!isLoading && isEmpty && (
+          <p>Cart is empty. Add products from<a href="http://localhost:3000/ecom/products/M30I20983">product</a>page!</p>
+        )}
+        {!isLoading && !isEmpty &&
+          cart.map((cp, index) => (
+            <ul className="ul cart-product" key={cp.product_id}>
+              <div className="row cart-product-row">
+                <div className="col cart-product-img-col">
+                  <Image
+                    src={cp.image_url}
+                    className="cart-product-img"
+                    alt="product-image"
+                  ></Image>
+                </div>
+                <div className="col cart-product-row-left">
+                  {/* <div className="col col-md-9 col-sm-9 col-xs-1 card-product-text-col"> */}
+                  <div>
+                    <input
+                      id={cp.product_id}
+                      type="hidden"
+                      value={cp.product_id}
+                    />
+                    <a href={"/ecom/products/" + cp.product_id}>
+                      {cp.product_desc}
+                    </a>
+                    <br />
+                    <div className="cart-product-price">
+                      <i className="fa fa-inr price-mrp">M.R.P.: {cp.mrp}</i>
+                      Your Price: <i className="fa fa-inr"></i>
+                      {cp.retail_price}
+                    </div>
+                  </div>
+                  <div className="row cart-product-option-row">
+                    Qty:{" "}
+                    <select className="ml-1 mr-3">
+                      <option defaultValue>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                    </select>
+                    |
+                    <button
+                      className="btn btn-link btn-sm"
+                      id={cp.product_id + "_" + index}
+                      onClick={() => deleteProductFromCart(cp.product_id)}
+                    >
+                      Delete
+                    </button>{" "}
+                    |
+                    <button className="btn btn-link btn-sm">
+                      Save for Later
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <hr />
+            </ul>
+          ))}
+      </div>
+      <div className="cart-main-container-left">
+        <div className="cart-card">
+          <p className="cart-card-text">Subtotal: </p>
+          <p className="cart-card-text">Subtotal: </p>
+          <button className="btn btn-warning btn-sm">Proceed to Buy</button>
+        </div>
+        <div className="cart-card">
+          Recently Viewed Items
+          <ul>
+            <li>item</li>
+            <li>item</li>
+            <li>item</li>
+            <li>item</li>
+            <li>item</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default EcomCart;

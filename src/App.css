@@ -36,3 +36,13 @@
     transform: rotate(360deg);
   }
 }
+
+.app__error-text {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: red;
+  text-align: center;
+}
+.app__.price-symbol {
+  te&#x20B9;
+}

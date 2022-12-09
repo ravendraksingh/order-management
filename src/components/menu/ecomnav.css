@@ -1,0 +1,19 @@
+.navlink {
+  color: #fff;
+}
+a.navlink:link {
+  color: inherit;
+}
+.navlink.disabled {
+  color: #aaa;
+}
+a.navlink:hover {
+  background-color: #0d6efd;
+  color: #fff;
+}
+
+@media screen and (max-width: 768px) {
+  #id_ecomnav {
+    display: none;
+  }
+}

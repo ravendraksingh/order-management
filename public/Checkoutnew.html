@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <title>New Checkout Page</title>
+    </head>
+    <body>
+        <h2>New Checkout Page</h2>
+        <br />
+        <br />
+        <form id="frm1" name="frm1">
+            <script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_JaFe43yAOv6cRD" async> </script> 
+        </form>
+
+        <a href="https://rzp.io/l/5Y2Ng8XS" target="_self">Pay with Razorpay Payment-Page</a>
+        <br />
+        <br />
+        <a href="https://rzp.io/i/LYqwGEBiDe" target="_blank">Pay via Razorpay Payment-Link</a>
+        <br />
+        <br />
+        <form id="frm2" name="frm2" action="checkoutacceptfrm2.html" target="_self">
+            <input type="hidden" name="id" value="ID0034" >
+            <input type="text" name="fname" value="Ravendra">
+            <input type="text" name="lname" value="Singh">
+            <br />
+            <br />
+            <button type="submit" name="btnSubmit">Submit</button>
+        </form>
+    </body>
+</html>

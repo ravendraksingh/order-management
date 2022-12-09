@@ -1,0 +1,16 @@
+.order-name-text {
+    width: auto;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+}
+
+.order__recomm {
+    width: auto;
+    height: 50vh;
+    /* display: flex; */
+    border: .5px solid grey;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+}
