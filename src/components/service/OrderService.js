@@ -26,7 +26,6 @@ const fetchAllOrders = () => {
       // 'Content-Type': 'application/x-www-form-urlencoded',
     },
 }).then((res) => {
-  console.log(res);
   return res.json();
 }).catch((err) => {
   console.log(err);

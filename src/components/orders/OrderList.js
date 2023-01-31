@@ -1,21 +1,15 @@
-import React, { Fragment, useState } from "react";
+import React from "react";
 import Order from "./Order";
 import "./OrderList.css";
 
 const OrderList = (props) => {
+  const orders = props.orders;
   return (
-    <Fragment>
-      <div className="row">
-        <div className="col-12 col-sm-9">
-          {props.orders.map((or) => {
-            return <Order order={or} key={"order_" + or.order_id} />;
-          })}
-        </div>
-        <div className="col-12 col-sm-3 order__recomm">
-          <h3>Recommendation</h3>
-        </div>
-      </div>
-    </Fragment>
+    <ul className="order__list mx-auto">
+      {orders.map((order) => (
+        <Order order={order} />
+      ))}
+    </ul>
   );
 };
 

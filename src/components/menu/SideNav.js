@@ -28,16 +28,36 @@ const SideNav = (props) => {
         <a href="javascript:void(0)" className="closebtn" onClick={closeNav}>
           &times;
         </a>
-        <Nav.Link as={Link} to="/ecom/home" className="navlink">
+        <Nav.Link
+          as={Link}
+          to="/ecom/home"
+          className="navlink"
+          onClick={closeNav}
+        >
           Home
         </Nav.Link>
-        <Nav.Link as={Link} to="/ecom/products" className="navlink">
+        <Nav.Link
+          as={Link}
+          to="/ecom/products"
+          className="navlink"
+          onClick={closeNav}
+        >
           Products
         </Nav.Link>
-        <Nav.Link as={Link} to="/ecom/checkout" className="navlink">
+        <Nav.Link
+          as={Link}
+          to="/ecom/checkout"
+          className="navlink"
+          onClick={closeNav}
+        >
           Checkout
         </Nav.Link>
-        <Nav.Link as={Link} to="/ecom/orders" className="navlink">
+        <Nav.Link
+          as={Link}
+          to="/ecom/orders"
+          className="navlink"
+          onClick={closeNav}
+        >
           Returns & orders
         </Nav.Link>
       </div>

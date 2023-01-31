@@ -1,4 +1,3 @@
-import React from "react";
 import AxiosWebService from "./AxiosWebService";
 
 const BASE_URL = process.env.REACT_APP_ORDERAPI_BASE_URL;
@@ -30,7 +29,7 @@ const axiosService = AxiosWebService(BASE_URL);
 
 const fetchAllOrders = async (email) => {
   let url = "/users/" + email + "/orders";
-  
+
   return get(url)
     .then((response) => {
       return response;
@@ -42,13 +41,13 @@ const fetchAllOrders = async (email) => {
     });
 };
 
-const get = async (url) => axiosService.get(url, getHeaders() );
+const get = async (url) => axiosService.get(url, getHeaders());
 
 const getHeaders = () => {
   return {
     "Content-Type": "application/json",
-    "Accept": "application/json"
-  }
+    Accept: "application/json",
+  };
 };
 
 const UserOrderService = {

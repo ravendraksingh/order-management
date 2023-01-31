@@ -83,6 +83,7 @@ const createOrder = async (data) => {
     } else if (err.request) {
       console.log(err.request);
       errorMessage = JSON.parse(err.request.response).message;
+      console.log(errorMessage);
     } else {
       console.log("Error: ", err.message);
     }

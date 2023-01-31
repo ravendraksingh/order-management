@@ -1,0 +1,26 @@
+.itemcard__product {
+  list-style-type: none;
+  padding-inline-start: 0px;
+  display: flex;
+  flex-direction: column;
+}
+.itemcard__product-img {
+  width: 80px;
+  height: 80px;
+  float: left;
+  margin: 0 10px 0 0;
+}
+.itemcard__img-desc-box {
+  /* white-space: nowrap; */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+@media screen and (max-width: 576px) {
+    .itemcard__product a {
+      text-decoration: none;
+    }
+  }

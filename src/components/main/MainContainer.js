@@ -25,11 +25,12 @@ import SideNav from "../menu/SideNav";
 // import useWindowDimensions from "../../utils/ScreenUtil";
 import Payment from "../checkout/Payment";
 import TxnHome from "../checkout/Txn/TxnHome";
+import CustomCarousel from "../UI/Carousel/CustomCarousel";
 
 const OrderHome = React.lazy(() => import("../orders/OrderHome"));
 // const ProductList = React.lazy(() => import("../products/ProductList"));
 // const ProductDetails = React.lazy(() => import("../products/ProductDetails"));
-const EcomCart = React.lazy(() => import("../Cart/EcomCart"));
+const EcomCart = React.lazy(() => import("../cart/EcomCart"));
 
 const MainContainer = () => {
   const [cartcount, setCartcount] = useState(0);
@@ -73,6 +74,7 @@ const MainContainer = () => {
           <Route path="/ecom/sidenav" element={<SideNav />} />
           <Route path="/ecom/payment" element={<Payment />} />
           <Route path="/ecom/transactions" element={<TxnHome />} />
+          <Route path="/ecom/carousel" element={<CustomCarousel />} />
         </Routes>
         {/* <Footer /> */}
       </Suspense>

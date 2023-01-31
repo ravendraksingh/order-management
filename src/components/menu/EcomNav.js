@@ -44,6 +44,9 @@ const EcomNav = () => {
             <Nav.Link as={Link} to="/ecom/checkout" className="navlink">
               Checkout
             </Nav.Link>
+            <Nav.Link as={Link} to="/ecom/carousel" className="navlink">
+              Carousel
+            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>

@@ -5,10 +5,12 @@ import "./ProductDetails.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import RelatedProducts from "./RelatedProducts";
-import xtype from "xtypejs";
+//import xtype from "xtypejs";
 import { Image } from "react-bootstrap";
 import CartContext from "../../context/CartContext";
 import * as NumUtils from "../../utils/NumberUtil";
+import Rating from "../UI/Rating";
+// import ImgGallary from "./ImgGallary";
 
 const ProductDetails = (props) => {
   const { id } = useParams();
@@ -84,22 +86,56 @@ const ProductDetails = (props) => {
   }
 
   return (
-    <div>
+    <div className="container pd-container">
       {isLoading && <p>Loading...</p>}
       {!isLoading && productItem.length === 0 && <p>No Data Found!</p>}
       {!isLoading &&
         productItem.map((product, index) => (
-          <div key={product.id} className="container pd-container">
+          <div key={product.id}>
             <div className="row">
-              <div id="product-image" className="col-12 col-md-5 pd-img">
+              <div id="pd-img-tn" className="col-1 pd-img-tn">
+                <ul>
+                  <li>
+                    <img
+                      src="http://localhost:8000/boatwatch_tiny_1.jpg"
+                      alt="alt-img-1"
+                    />
+                  </li>
+                  <li>
+                    <img
+                      src="http://localhost:8000/boatwatch_tiny_2.jpg"
+                      alt="alt-img-2"
+                    />
+                  </li>
+                  <li>
+                    <img
+                      src="http://localhost:8000/boatwatch_tiny_3.jpg"
+                      alt="alt-img-3"
+                    />
+                  </li>
+                  <li>
+                    <img
+                      src="http://localhost:8000/boatwatch_tiny_4.jpg"
+                      alt="alt-img-4"
+                    />
+                  </li>
+                  <li>
+                    <img
+                      src="http://localhost:8000/boatwatch_tiny_5.jpg"
+                      alt="alt-img-5"
+                    />
+                  </li>
+                </ul>
+              </div>
+              <div id="product-image" className="col-11 col-md-5 pd-img">
                 <Image
                   className="img-thumbnail"
-                  src={product.productDetails.image_url_big}
+                  src={product.images.big ?? product.images.default}
                   style={{ border: "0px" }}
                 />
               </div>
 
-              <div id="product-info" className="col-12 col-md-5 pd-prodinfo">
+              <div id="product-info" className="col-11 col-md-4 pd-prodinfo">
                 <div>
                   <div className="card-text">
                     <h3>{product.description}</h3>
@@ -107,22 +143,28 @@ const ProductDetails = (props) => {
                     <table className="pricetable">
                       <tbody>
                         <tr>
+                          <td className="td-col-name">Rating:</td>
+                          <td>{<Rating rating={product.rating} />}</td>
+                        </tr>
+                        <tr>
                           <td className="td-col-name">M.R.P.:</td>
                           <td className="price-mrp">
-                            {NumUtils.toIndianCurrency(product.pricing.list)}
+                            {NumUtils.toIndianCurrency(product.price_info.mrp)}
                           </td>
                         </tr>
                         <tr>
                           <td className="td-col-name">Price:</td>
                           <td className="price">
-                            {NumUtils.toIndianCurrency(product.pricing.retail)}
+                            {NumUtils.toIndianCurrency(
+                              product.price_info.retail
+                            )}
                           </td>
                         </tr>
                         <tr>
                           <td className="td-col-name">You Save:</td>
                           <td className="savings">
                             {NumUtils.toIndianCurrency(
-                              product.pricing.savings ?? 0.0
+                              product.price_info.discount ?? 0.0
                             )}
                           </td>
                         </tr>
@@ -131,97 +173,67 @@ const ProductDetails = (props) => {
                   </div>
                 </div>
                 <hr />
-                {product.productDetails?.product_spec && (
+                {product.product_spec && (
                   <div>
                     <b>Product Specification</b>
                     <table>
                       <tbody>
-                        {Object.keys(product.productDetails?.product_spec).map(
-                          (key, index2) => (
-                            <tr
-                              style={{ fontSize: "14px" }}
-                              key={product.id + "tr" + index2}
+                        {product.product_spec.map((spec, index) => (
+                          <tr
+                            style={{ fontSize: "14px" }}
+                            key={"spec_" + spec.id}
+                          >
+                            <td
+                              style={{
+                                fontSize: "14px",
+                                fontWeight: "bold",
+                                marginRight: "10px",
+                              }}
                             >
-                              <td
-                                style={{
-                                  fontSize: "14px",
-                                  fontWeight: "bold",
-                                  marginRight: "10px",
-                                }}
-                              >
-                                {key}
-                              </td>
-                              <td>
-                                {product.productDetails.product_spec[key]}
-                              </td>
-                            </tr>
-                          )
-                        )}
+                              {spec.key}
+                            </td>
+                            <td style={{ paddingLeft: "10px" }}>
+                              {spec.value}
+                            </td>
+                          </tr>
+                        ))}
                       </tbody>
                     </table>
                     <hr />
                   </div>
                 )}
-                {product.productDetails?.product_info?.length > 0 && (
+                {product.product_info_list?.length > 0 && (
                   <div>
                     <b>About this item</b>
                     <ul className="product-info">
-                      {product.productDetails?.product_info?.map(
-                        (info, index) => (
-                          <li
-                            style={{ fontSize: "14px", marginLeft: "10px" }}
-                            key={product.id + Math.random().toString()}
-                          >
-                            {info}
-                          </li>
-                        )
-                      )}
+                      {product.product_info_list?.map((info, index) => (
+                        <li
+                          style={{ marginLeft: "10px" }}
+                          key={product.id + Math.random().toString()}
+                        >
+                          {info}
+                        </li>
+                      ))}
                     </ul>
                   </div>
                 )}
-                {product.productDetails?.product_info1 &&
-                  xtype(
-                    product.productDetails.product_info1 === "multi_char_string"
-                  ) && (
-                    <div>
-                      <p>
-                        <b>More about this item</b>
-                      </p>
-                      <p style={{ textAlign: "justify" }}>
-                        {product.productDetails.product_info1}
-                      </p>
-                    </div>
-                  )}
-                {product.productDetails?.product_info2 &&
-                  (xtype(
-                    product.productDetails.product_info2 === "single_elem_array"
-                  ) ||
-                    xtype(
-                      product.productDetails.product_info2 ===
-                        "multi_elem_array"
-                    )) && (
-                    <div>
-                      <p style={{ fontSize: "14px", fontWeight: "bold" }}>
-                        <b>more...</b>
-                      </p>
-                      <ul className="product-info">
-                        {product.productDetails.product_info2?.map(
-                          (info2, index2) => (
-                            <li key={product.id + index2}>{info2}</li>
-                          )
-                        )}
-                      </ul>
-                    </div>
-                  )}
+                {product.product_info_2 && (
+                  <div>
+                    <b>More ...</b>
+                    <p>{product.product_info_2}</p>
+                  </div>
+                )}
               </div>
 
-              <div id="buybox" className="col-12 col-md-2 pd-buybox">
+              <div id="buybox" className="col-11 col-md-2 pd-buybox">
                 <div className="">
                   <div>
-                    Without Exchange:
+                    <span style={{ fontWeight: "bold" }}>
+                      Without Exchange:
+                    </span>
                     <br />
                     <span className="elements price">
-                      {NumUtils.toIndianCurrency(product.pricing.retail)}
+                      {NumUtils.toIndianCurrency(product.price_info.retail)}
                     </span>
                   </div>
                   <div className="text-gray">Free Same Day</div>
@@ -267,14 +279,33 @@ const ProductDetails = (props) => {
                 </div>
               </div>
             </div>
+            <hr />
           </div>
         ))}
 
-      <hr />
+      <div>
+        <div>
+          <p>
+            <h3>From the manufacturer</h3>
+          </p>
+        </div>
+
+        {/* <div className="d-flex align-items-center justify-content-center">
+          <img src="https://m.media-amazon.com/images/S/aplus-media-library-service-media/f74b525b-2511-41c6-bf86-2a2b23c38604.__CR0,0,970,600_PT0_SX970_V1___.jpg" />
+        </div> */}
+      </div>
+
       <div className="pd-related-container">
-        <h3>Products related to this item</h3>
+        <span style={{ textAlign: "center" }}>
+          <h3>Products related to this item</h3>
+        </span>
         <RelatedProducts pid={id} />
       </div>
+
+      {/* <div>
+        <h3>Image Gallery</h3>
+        <ImgGallary />
+      </div> */}
     </div>
   );
 };

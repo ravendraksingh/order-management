@@ -1,0 +1,21 @@
+.order__main-container {
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.order__list {
+
+}
+.order__recomm {
+    width: auto;
+    height: 50vh;
+    border: .5px solid grey;
+    border-radius: 4px;
+    background-color: #f8f9fa;
+}
+@media screen and (max-width: 576px) {
+    .order__main-container {
+        flex-direction: column;
+    }
+}

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import "./Cart.css";
+import "./cart.css";
 import Image from "react-bootstrap/Image";
 import { Link } from "react-router-dom";
 import CartContext from "../../context/CartContext";
@@ -62,11 +62,12 @@ const EcomCart = (props) => {
       item = {
         sku: cartitem.sku,
         name: cartitem.name,
-        price: cartitem.pricing.retail,
-        mrp: cartitem.pricing.list,
-        discount: cartitem.pricing.savings,
+        price: cartitem.price_info.retail,
+        mrp: cartitem.price_info.mrp,
+        discount: cartitem.price_info.discount,
         quantity: cartitem.quantity,
-        image_url: cartitem.imageUrl,
+        image_url: cartitem.images.default,
+        description: cartitem.description,
       };
       itemarray = [...itemarray, item];
     }
@@ -91,7 +92,7 @@ const EcomCart = (props) => {
 
   return (
     <div className="container cart-main-container">
-      <div className="col-12 col-sm-8 cart-main-container-right">
+      <div className="col-12 col col-md-8 cart-main-container-left">
         <h3>Shopping Cart</h3>
         {cartCtx?.cartInfo?.totalQty === 0 && (
           <p>
@@ -103,7 +104,7 @@ const EcomCart = (props) => {
           <ul className="ul cart-product" key={cp.id}>
             <li>
               <Image
-                src={cp.imageUrl}
+                src={cp.images.default}
                 className="cart-product-img"
                 alt="product-image"
               ></Image>
@@ -116,9 +117,9 @@ const EcomCart = (props) => {
             <li>
               M.R.P.:
               <span className="price-mrp">
-                {NumberUtil.toIndianCurrency(cp.pricing.list)}
+                {NumberUtil.toIndianCurrency(cp.price_info.mrp)}
               </span>
-              Price: {NumberUtil.toIndianCurrency(cp.pricing.retail)}
+              Price: {NumberUtil.toIndianCurrency(cp.price_info.retail)}
             </li>
             <li>
               Qty:
@@ -146,13 +147,15 @@ const EcomCart = (props) => {
         ))}
       </div>
 
-      <div className="col-12 col-sm-4 cart-main-container-right">
+      <div className="col-12 col-md-4 cart-main-container-right">
         <div className="container cart-buy-card">
           <span>
-            Subtotal ({cartCtx.totalQty} items):
-            {NumberUtil.toIndianCurrency(
-              cartCtx.cartInfo.netAmount ? cartCtx.cartInfo.netAmount : 0
-            )}
+            <b>
+              SubTotal ({cartCtx.cartInfo.totalQty} items) :
+              {NumberUtil.toIndianCurrency(
+                cartCtx.cartInfo.netAmount ? cartCtx.cartInfo.netAmount : 0
+              )}
+            </b>
           </span>
           <span>
             <button

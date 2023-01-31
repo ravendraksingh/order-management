@@ -1,0 +1,24 @@
+.order__actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  justify-items: flex-end;
+  /* width: max-content; */
+}
+.order__actions button {
+  border: 1px solid rgb(0, 0, 0, 0.175);
+  margin: 2px 0 4px 0;
+  font-size: 13px;
+}
+/* *,
+::after,
+::before {
+  box-sizing: border-box;
+} */
+
+@media (max-width: 576px) {
+  .order__actions {
+    display: none;
+  }
+}

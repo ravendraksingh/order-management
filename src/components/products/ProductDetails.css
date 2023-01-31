@@ -80,10 +80,21 @@ h3 {
     border-color: gray;
 }
 .pd-buybox-btn {
-    max-width: 50%;
+    min-width: 100px;
 }
 .pd-related-container {
     margin-left: 10px;
     margin-bottom: 10px;
     padding-right: 10px;
+}
+.pd-img-tn {
+    border: .0px solid gray;
+}
+.pd-img-tn ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.pd-img-tn li {
+    margin-bottom: 20px;
 }

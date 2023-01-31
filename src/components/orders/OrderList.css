@@ -1,16 +1,23 @@
 .order-name-text {
-    width: auto;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
-    overflow: hidden;
+  width: auto;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
 }
 
-.order__recomm {
-    width: auto;
-    height: 50vh;
-    /* display: flex; */
-    border: .5px solid grey;
-    border-radius: 8px;
-    background-color: #f8f9fa;
+.order__list {
+  list-style: none;
+  width: 900px;
+  margin-top: 0;
+  /* margin-bottom: 10px; */
+  padding: 0;
+  font-size: 14px;
 }
+
+@media screen and (max-width: 576px) {
+    .order__list {
+        width: auto;
+    }
+}
+

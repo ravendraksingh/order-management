@@ -2,18 +2,29 @@ import React, { Fragment } from "react";
 //import image1 from "../../images/1.jpeg";
 import "./ItemList.css";
 import "../products/ProductList.css";
-import * as NumUtils from "../../utils/NumberUtil";
+import ItemCard from "./ItemCard";
+import OrderActions from "./OrderActions";
 
 const ItemList = (props) => {
   //console.log(props);
-  const data = props.items
+  const data = props.items;
 
   return (
     <Fragment>
-      {data.map((item, index) => {
-        return (
-          <Fragment key={"frgmt_" + index}>
-            <div className="row order__item">
+      <ul className="order__items">
+        {data.map((item, index) => {
+          return (
+            <Fragment key={"frgmt_" + index}>
+              <div className="row order__item-list">
+                <div className="col-sm-9 order__item-list-left">
+                  <ItemCard item={item} orderDate={props.orderDate} />
+                </div>
+                <div className="col-sm-3 order__item-list-right">
+                  <OrderActions />
+                </div>
+              </div>
+
+              {/* <div className="row order__item">
               <div className="col-12 col-md-4 col-sm-4">
                 <div style={{ textAlign: "left" }}>
                   <img
@@ -25,7 +36,9 @@ const ItemList = (props) => {
                 </div>
               </div>
               <div className="col-12 col-md-5 col-sm-5">
-                <div className="product-card-text">{item.name}</div>
+                <div className="product-card-text">
+                  <a href={"/ecom/products/" + item.sku}>{item.name}</a>
+                </div>
                 <div>Quantity: {item.quantity}</div>
                 <div>
                   Unit Price: {NumUtils.toIndianCurrency(item.unit_price)}
@@ -49,10 +62,11 @@ const ItemList = (props) => {
                   </button>
                 </div>
               </div>
-            </div>
-          </Fragment>
-        );
-      })}
+            </div> */}
+            </Fragment>
+          );
+        })}
+      </ul>
     </Fragment>
   );
 };

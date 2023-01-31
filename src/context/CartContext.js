@@ -91,11 +91,11 @@ export const CartContextProvider = (props) => {
 
   const getCartInfo = (cart) => {
     const total_mrp = getTotalMRPInCart(cart);
-    const total_netamt = getTotalNetAmountInCart(cart);
     const total_discount = getTotalDiscountInCart(cart);
+    const total_netamt = getTotalNetAmountInCart(cart);
     const total_quantity = getTotalQtyInCart(cart);
 
-    let info = {
+    const info = {
       totalQty: total_quantity,
       totalMRP: total_mrp,
       totalSaving: total_discount,
@@ -105,10 +105,10 @@ export const CartContextProvider = (props) => {
   };
 
   const getTotalQtyInCart = (cart) => {
-    let qtyArray = cart.map((item) => {
-      return parseInt(item.quantity, 10);
-    });
-    let total = qtyArray.reduce((a, b) => a + b, 0);
+    let total = 0;
+    total = cart.reduce((curTotal, item) => {
+      return curTotal + +item.quantity;
+    }, 0);
     return total;
   };
 
@@ -125,24 +125,20 @@ export const CartContextProvider = (props) => {
   };
 
   const getTotalValueForType = (cart, type) => {
-    // console.log("in getTotalValueForType", type, cart);
     let amountValue = parseFloat(0.0);
-    let amountArray;
     if (type === "retail") {
-      amountArray = cart.map((item) => {
-        return parseFloat(item.pricing.retail * item.quantity);
-      });
+      amountValue = cart.reduce((curTotal, item) => {
+        return curTotal + item.price_info.retail * item.quantity;
+      }, 0);
     } else if (type === "mrp") {
-      amountArray = cart.map((item) => {
-        return parseFloat(item.pricing.list * item.quantity);
-      });
+      amountValue = cart.reduce((curTotal, item) => {
+        return curTotal + item.price_info.mrp * item.quantity;
+      }, 0);
     } else if (type === "discount") {
-      amountArray = cart.map((item) => {
-        return parseFloat(item.pricing.savings * item.quantity);
-      });
+      amountValue = cart.reduce((curTotal, item) => {
+        return curTotal + item.price_info.discount * item.quantity;
+    }, 0);
     }
-    amountValue = amountArray.reduce((a, b) => a + b, 0);
-    // console.log(type + " total in cart", amountValue);
     return amountValue;
   };
 
