@@ -1,5 +1,5 @@
 const ProductReducer = (state, action) => {
-  console.log("in ProductReducer", state);
+  //console.log("in ProductReducer", state);
 
   switch (action.type) {
     case "CHANGE_CATEGORY":
